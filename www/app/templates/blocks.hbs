@@ -1,0 +1,68 @@
+<div class="jumbotron">
+  <div class="container">
+       <div class="col-lg-3 col-md-6">
+              <!-- small box -->
+              <div class="small-box bg-dark-blue">
+                  <div class="inner ">
+                      <h3><span class="text-white">
+                                             {{#if model.blocksTotal}}
+                                                 {{format-number model.blocksTotal}}
+                                              {{else}}
+                                              -
+                                              {{/if}}
+                      </span> </h3>
+                      <p> Blocks Found   </p>
+                  </div>
+              </div>
+          </div>
+
+
+          <div class="col-lg-3 col-md-6">
+              <!-- small box -->
+              <div class="small-box bg-dark-blue">
+                  <div class="inner ">
+                      <h3><span class="text-white">
+                        {{#if model.lastBlockFound}}
+                                                                       {{format-number model.blocksTotal}}
+                                                                    {{else}}
+                                                                    -
+                                                                    {{/if}}
+                      </span> </h3>
+                      <p> Last block found   </p>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+              <!-- small box -->
+              <div class="small-box bg-dark-blue">
+                  <div class="inner ">
+                      <h3><span class="text-white">
+                        {{format-number model.currentHeight}}
+                      </span> </h3>
+                      <p> Current Height   </p>
+                  </div>
+              </div>
+          </div>
+
+
+
+  </div>
+</div>
+<div class="container">
+  {{#if model.luck}}
+    {{partial "luck"}}
+  {{/if}}
+  <ul class="nav nav-tabs">
+    {{#active-li currentWhen='blocks.index' role='presentation'}}
+      {{#link-to 'blocks.index'}}Blocks <span class="badge alert-success">{{format-number model.maturedTotal}}</span>{{/link-to}}
+    {{/active-li}}
+    {{#active-li currentWhen='blocks.immature' role='presentation'}}
+      {{#link-to 'blocks.immature'}}Immature <span class="badge alert-success">{{format-number model.immatureTotal}}</span>{{/link-to}}
+    {{/active-li}}
+    {{#active-li currentWhen='blocks.pending' role='presentation'}}
+      {{#link-to 'blocks.pending'}}New Blocks <span class="badge alert-info">{{format-number model.candidatesTotal}}</span>{{/link-to}}
+    {{/active-li}}
+  </ul>
+  {{outlet}}
+</div>

@@ -1,0 +1,112 @@
+{
+  "threads": 2,
+	"coin": "dae-pplns",
+	"name": "main",
+	"pplns": 0,
+	"coin-name":"DAE",
+	"coin-solo": "dae-solo",
+  
+	"proxy": {
+		"enabled": false,
+		"listen": "0.0.0.0:8888",
+		"limitHeadersSize": 1024,
+		"limitBodySize": 256,
+		"behindReverseProxy": false,
+		"blockRefreshInterval": "120ms",
+		"stateUpdateInterval": "3s",
+		"difficulty": 4000000000,
+		"hashrateExpiration": "3h",
+
+		"healthCheck": true,
+		"maxFails": 100,
+
+		"stratum": {
+			"enabled": false,
+			"listen": "0.0.0.0:4114",
+			"timeout": "120s",
+			"maxConn": 8192
+		},
+
+		"policy": {
+			"workers": 8,
+			"resetInterval": "60m",
+			"refreshInterval": "1m",
+
+			"banning": {
+				"enabled": false,
+				"ipset": "blacklist",
+				"timeout": 1800,
+				"invalidPercent": 30,
+				"checkThreshold": 30,
+				"malformedLimit": 5
+			},
+			"limits": {
+				"enabled": false,
+				"limit": 30,
+				"grace": "5m",
+				"limitJump": 10
+			}
+		}
+	},
+
+	"api": {
+		"enabled": false,
+		"purgeOnly": false,
+		"purgeInterval": "10m",
+		"listen": "0.0.0.0:8080",
+		"statsCollectInterval": "5s",
+		"hashrateWindow": "30m",
+		"hashrateLargeWindow": "3h",
+		"luckWindow": [64, 128, 256],
+		"payments": 30,
+		"blocks": 50
+	},
+
+	"upstreamCheckInterval": "5s",
+
+
+	"redis": {
+		"endpoint": "127.0.0.1:6379",
+		"poolSize": 10,
+		"database": 1,
+		"password": ""
+	},
+
+	"unlocker": {
+		"enabled": true,
+		"poolFee": 1.0,
+		"poolFeeAddress": "",
+		"donate": false,
+		"depth": 60,
+		"immatureDepth": 20,
+		"keepTxFees": false,
+		"interval": "5m",
+		"daemon": "http://127.0.0.1:8545",
+		"timeout": "10s"
+	},
+  
+	"payouts": {
+		"enabled": true,
+		"requirePeers": 1,
+		"interval": "30m",
+		"daemon": "http://127.0.0.1:8545",
+		"timeout": "10s",
+		"address": "0xA978E533499B673Ee1ddd3A8bCb97C50f6AfDF79",
+		"gas": "21000",
+		"gasPrice": "20000000000",
+		"autoGas": true,
+		"keepNwFees": true,
+		"nwTxGas": "21000",
+		"nwTxGasPrice": "20000000000",
+		"threshold": 1000000000,
+		"bgsave": false
+	},
+  
+
+
+
+	"newrelicEnabled": false,
+	"newrelicName": "MyEtherProxy",
+	"newrelicKey": "SECRET_KEY",
+	"newrelicVerbose": false
+}

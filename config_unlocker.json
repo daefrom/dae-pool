@@ -1,0 +1,57 @@
+{
+	"threads": 2,
+	"coin": "dae-pplns",
+	"name": "main",
+	"pplns": 100000,
+	"coin-name":"DAE",
+	"coin-solo": "dae-solo",
+	"proxy": {
+		"enabled": false
+	},
+
+	"api": {
+		"enabled": false
+	},
+
+	"upstreamCheckInterval": "5s",
+	"upstream": [
+		{
+			"name": "main",
+			"url": "http://127.0.0.1:4234",
+			"timeout": "10s"
+		}
+	],
+
+	"redis": {
+		"endpoint": "127.0.0.1:6379",
+		"poolSize": 10,
+		"database": 1,
+		"password": ""
+	},
+
+	"unlocker": {
+		"enabled": true,
+		"poolFee": 1.0,
+		"poolFeeAddress": "",
+		"donate": false,
+		"depth": 60,
+		"immatureDepth": 20,
+		"keepTxFees": false,
+		"interval": "15m",
+		"daemon": "http://127.0.0.1:4234",
+		"timeout": "10s"
+	},
+
+	"payouts": {
+		"enabled": false
+	},
+
+	"exchange": {
+		"enabled": false
+	},
+
+	"newrelicEnabled": false,
+	"newrelicName": "PROXY01_ETC_MUMBAI",
+	"newrelicKey": "b30cd005408cbe2bcef6e081dc0a7ea2fe6c6a18",
+	"newrelicVerbose": false
+}

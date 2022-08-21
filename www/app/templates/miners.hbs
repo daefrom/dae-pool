@@ -1,0 +1,76 @@
+<div class="jumbotron">
+  <div class="container">
+
+      <div class="col-lg-3 col-md-6">
+          <!-- small box -->
+          <div class="small-box bg-dark-blue">
+              <div class="inner ">
+                  <h3><span class="text-white">
+                      {{format-hashrate model.hashrate}}
+                  </span> </h3>
+                  <p> Total hashrate:   </p>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="col-lg-3 col-md-6">
+          <!-- small box -->
+          <div class="small-box bg-dark-blue">
+              <div class="inner ">
+                  <h3><span class="text-white">
+                      {{format-number model.minersTotal}}
+                  </span> </h3>
+                  <p> Total miners:   </p>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="col-lg-3 col-md-6">
+          <!-- small box -->
+          <div class="small-box bg-dark-blue">
+              <div class="inner ">
+                  <h3><span class="text-white">
+                      {{format-number model.workersTotal}}
+                  </span> </h3>
+                  <p> Total workers: </p>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="container">
+  {{#if model.miners}}
+  <h4>Miners</h4>
+  <div class="table-responsive">
+    <table class="table table-condensed table-striped">
+      <thead>
+        <tr>
+          <th>Login</th>
+          <th>Hashrate</th>
+          <th>Last Beat</th>
+          <th>Mining Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each model.miners as |m|}}
+        <tr class="{{if m.offline "warning"}}">
+          <td>{{#link-to 'account' m.login class='hash'}}{{m.login}}{{/link-to}}</td>
+          <td>{{format-hashrate m.hr}}</td>
+          <td>{{format-date-locale m.lastBeat}}</td>
+            <td>
+
+                 <span class="label label-danger">solo</span>
+
+
+            </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  {{else}}
+  <h3>No miners</h3>
+  {{/if}}
+</div>

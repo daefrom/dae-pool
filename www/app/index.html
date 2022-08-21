@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png"/>
+    <title>DAE Mining Pool</title>
+    <meta name="description" content="High profitability DAE mining pool"/>
+    <meta name="keywords" content="dae, pool, mining, cryptocurrency"/>
+    <script src="https://cdn.polyfill.io/v1/polyfill.min.js?features=Intl.~locale.en"></script>
+
+    {{content-for "head"}}
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/open-ethereum-pool.css">
+    {{content-for "head-footer"}}
+  </head>
+  <body>
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-R85LWWEDTY"></script>
+   <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-R85LWWEDTY'); </script>
+    {{content-for "body"}}
+
+    <div class="ember-load-indicator center">
+      <div class="loader">Loading...</div>
+    </div>
+
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/open-ethereum-pool.js"></script>
+
+    {{content-for "body-footer"}}
+
+
+    <div class="container-fluid footer navbar-fixed-bottom">
+        <footer class="footer">
+
+          <div class="text-center">
+                <p class="text-white">Copyright © 2022 daepool.com | <a class="text-yellow" href="mailto:pool@daefrom.com"><i class="fa fa-envelope-open"></i> pool@daefrom.com</a>  | This pool is fully compatible with <a href="https://www.nicehash.com"><img src="/nicehash.png" alt="" height="20"></a></p>
+
+
+          </div>
+        </footer>
+    </div>
+  </body>
+  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</html>

@@ -1,0 +1,88 @@
+{
+  "threads": 2,
+  "coin": "dae-pplns",
+  "name": "main",
+  "pplns": 100000,
+  "coin-name":"DAE",
+  "coin-solo": "dae-solo",
+
+  "proxy": {
+    "enabled": true,
+    "listen": "0.0.0.0:9119",
+    "limitHeadersSize": 1024,
+    "limitBodySize": 256,
+    "behindReverseProxy": false,
+    "blockRefreshInterval": "120ms",
+    "stateUpdateInterval": "3s",
+    "difficulty": 64000000000,
+    "hashrateExpiration": "3h",
+
+    "healthCheck": true,
+    "debug": true,
+    "maxFails": 100,
+
+    "stratum": {
+      "enabled": true,
+      "listen": "0.0.0.0:7117",
+      "timeout": "120s",
+      "maxConn": 8192,
+      "tls": false,
+      "certFile": "/var/www/pool/fullchain3.pem",
+      "certKey": "/var/www/pool/privkey3.pem"
+    },
+
+    "policy": {
+      "workers": 8,
+      "resetInterval": "60m",
+      "refreshInterval": "1m",
+
+      "banning": {
+        "enabled": false,
+        "ipset": "blacklist",
+        "timeout": 1800,
+        "invalidPercent": 30,
+        "checkThreshold": 30,
+        "malformedLimit": 5
+      },
+      "limits": {
+        "enabled": false,
+        "limit": 30,
+        "grace": "5m",
+        "limitJump": 10
+      }
+    }
+  },
+
+  "api": {
+    "enabled": false
+  },
+
+  "upstreamCheckInterval": "5s",
+  "upstream": [
+    {
+      "name": "main",
+      "url": "http://127.0.0.1:8895",
+      "timeout": "10s"
+    }
+  ],
+
+  "redis": {
+    "endpoint": "127.0.0.1:6379",
+    "poolSize": 10,
+    "database": 0,
+    "password": ""
+  },
+
+  "unlocker": {
+    "enabled": false
+  },
+
+  "payouts": {
+    "enabled": false
+  },
+
+  "newrelicEnabled": false,
+  "newrelicName": "MyEtherProxy",
+  "newrelicKey": "SECRET_KEY",
+  "newrelicVerbose": false
+}

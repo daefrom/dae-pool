@@ -1,0 +1,62 @@
+{
+	"threads": 2,
+	"coin": "dae-pplns",
+	"name": "main",
+	"pplns": 100000,
+	"coin-name":"DAE",
+	"coin-solo": "dae-solo",
+
+	"proxy": {
+		"enabled": false
+	},
+
+	"api": {
+		"enabled": false
+	},
+
+	"upstreamCheckInterval": "5s",
+	"upstream": [
+		{
+			"name": "main",
+			"url": "http://127.0.0.1:4234",
+			"timeout": "10s"
+		}
+	],
+
+	"redis": {
+		"endpoint": "127.0.0.1:6379",
+		"poolSize": 10,
+		"database": 1,
+		"password": ""
+	},
+
+	"unlocker": {
+		"enabled": false
+	},
+
+	"payouts": {
+		"enabled": true,
+		"requirePeers": 5,
+		"interval": "120m",
+		"daemon": "http://127.0.0.1:4234",
+		"timeout": "10s",
+		"address": "0x2020e8b6bAa0C22e1fFADEE89Ee58a815F9ede92",
+		"gas": "21000",
+		"gasPrice": "20000000000",
+		"autoGas": true,
+		"keepNwFees": true,
+		"nwTxGas": "21000",
+		"nwTxGasPrice": "20000000000",
+		"threshold": 500000000,
+		"bgsave": false
+	},
+
+	"exchange": {
+		"enabled": false
+	},
+
+	"newrelicEnabled": false,
+	"newrelicName": "PROXY01_ETC_MUMBAI",
+	"newrelicKey": "b30cd005408cbe2bcef6e081dc0a7ea2fe6c6a18",
+	"newrelicVerbose": false
+}

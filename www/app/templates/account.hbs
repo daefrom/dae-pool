@@ -1,0 +1,147 @@
+{{outlet 'error' }}
+<div class="jumbotron">
+  <div class="container">
+
+      <div class="col-lg-3 col-md-6">
+          <!-- small box -->
+          <div class="small-box bg-dark-blue">
+              <div class="inner ">
+                  <h3><span class="text-white">
+                      {{format-hashrate model.currentHashrate}} | {{format-hashrate model.hashrate}}
+                  </span> </h3>
+                  <p> Hashrate 30m | 3h:   </p>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="col-lg-3 col-md-6">
+          <!-- small box -->
+          <div class="small-box bg-dark-blue">
+              <div class="inner ">
+                  <h3><span class="text-white">
+                      {{format-balance model.24hreward}}
+                  </span> </h3>
+                  <p> Last 24h Reward::   </p>
+              </div>
+          </div>
+      </div>
+
+
+
+      <div class="col-lg-3 col-md-6">
+          <!-- small box -->
+          <div class="small-box bg-dark-blue">
+              <div class="inner ">
+                  <h3><span class="text-white">
+                    {{format-number model.stats.blocksFound fallback='0'}} |  {{format-threshold model.threshold}} DAE
+
+                  </span> </h3>
+                  <p> Blocks Found | Your threshold  </p>
+              </div>
+          </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+          <!-- small box -->
+          <div class="small-box bg-dark-blue">
+              <div class="inner ">
+
+                  <h3><span class="text-white">
+                      {{format-number accountRoundVariance style='percent'}}
+                  </span> </h3>
+                  <p> Miner Luck </p>
+
+              </div>
+          </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+          <!-- small box -->
+          <div class="small-box bg-dark-blue">
+              <div class="inner ">
+                  <h3><span class="text-white">
+                      {{format-balance model.stats.immature}} | {{format-balance model.stats.balance}}
+                  </span> </h3>
+                  <p> Immature | Pending Balance:   </p>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="col-lg-3 col-md-6">
+          <!-- small box -->
+          <div class="small-box bg-dark-blue">
+              <div class="inner ">
+                  <h3><span class="text-white">
+                      {{format-balance model.stats.paid}} {{config.Unit}}
+                  </span> </h3>
+                  <p> Total Paid:   </p>
+              </div>
+          </div>
+      </div>
+
+
+
+
+      <div class="col-lg-3 col-md-6">
+          <!-- small box -->
+          <div class="small-box bg-dark-blue">
+              <div class="inner ">
+                  <h3><span class="text-white">
+                    {{format-relative (seconds-to-ms (string-to-int model.stats.lastShare))}}
+                  </span> </h3>
+
+                  <p> Last Sent Work:   </p>
+
+              </div>
+          </div>
+      </div>
+
+
+      <div class="col-lg-3 col-md-6">
+          <!-- small box -->
+          <div class="small-box bg-dark-blue">
+              <div class="inner ">
+
+                      <h3><span class="text-white">
+                          {{format-number roundPercent style='percent' maximumFractionDigits='6'}}
+                      </span> </h3>
+                      <p> Round shares in % </p>
+
+              </div>
+          </div>
+      </div>
+
+  </div>
+</div>
+
+<div class="container">
+    {{#if config.highcharts.account.enabled}}
+        {{high-charts mode=chartMode chartOptions=chartOptions content=chartData}}
+    {{/if}}
+</div>
+
+<div class="container">
+  <ul class="nav nav-tabs">
+    {{#active-li currentWhen='account.index' role='presentation'}}
+      {{#link-to 'account.index'}}Workers  <span class="badge alert-success">{{model.workersOnline}}</span> / <span class="badge alert-danger">{{model.workersOffline}}</span>{{/link-to}}
+    {{/active-li}}
+    {{#active-li currentWhen='account.payouts' role='presentation'}}
+      {{#link-to 'account.payouts'}}Payouts{{/link-to}}
+    {{/active-li}}
+    {{#active-li currentWhen='account.rewards' role='presentation'}}
+       {{#link-to 'account.rewards'}}Rewards{{/link-to}}
+    {{/active-li}}
+    {{#active-li currentWhen='account.blocks' role='presentation'}}
+       {{#link-to 'account.blocks'}}Mined Blocks{{/link-to}}
+    {{/active-li}}
+    {{#active-li currentWhen='account.settings' role='presentation'}}
+      {{#link-to 'account.settings'}}Settings{{/link-to}}
+    {{/active-li}}
+
+
+  </ul>
+</div>
+
+{{outlet}}

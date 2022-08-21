@@ -1,0 +1,120 @@
+<div class="container">
+  <div class="page-header">
+    <h1>How To Mine</h1>
+  </div>
+  <h3 id="step-3-configuration">Configuration</h3>    <h3 id="step-3-configuration">NOTE: Password is not needed and You can use {wallet}.{workerName}</h3>
+
+
+  <p><strong>Mine by GPUs</strong></p>
+
+  <p><a href="https://phoenixminer.org/download/">PhoenixMiner</a>, <a href="https://github.com/trexminer/T-Rex/releases">T-REX</a>, <a href="https://github.com/Lolliedieb/lolMiner-releases/releases">lolMiner</a></p>
+
+
+  <p>After you have downloaded your chosen mining software, uncompress it, find the <code class="highlighter-rouge">start.bat</code> or <code class="highlighter-rouge">start.cmd</code> file, right-click on it, and click <code class="highlighter-rouge">Edit</code>.</p>
+
+  <p>Replace the file’s existing commands with the commands from the chart below that correspond to your chosen mining software.</p>
+
+  <table class="table table-bordered table-responsive">
+    <thead>
+    <tr>
+      <th style="text-align: center">Software</th>
+      <th style="text-align: center">Commands</th>
+      <th style="text-align: center">Notes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td style="text-align: center">PhoenixMiner</td>
+      <td style="text-align: center">PhoenixMiner.exe -pool stratum+tcp://solo.daepool.com:4114 -wal <code class="highlighter-rouge">account_name</code> -worker <code class="highlighter-rouge">worker_name</code> -pass <code class="highlighter-rouge">x</code></td>
+      <td style="text-align: center">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">T-REX</td>
+      <td style="text-align: center">t-rex.exe -a ethash -o stratum+tcp://daepool.com:4114 -u  <code  class="highlighter-rouge">account_name</code> -w <code class="highlighter-rouge">worker_name</code> -p <code class="highlighter-rouge">x</code></td>
+      <td style="text-align: center">-</td>
+    </tr>
+
+    <tr>
+      <td style="text-align: center">lolMiner</td>
+      <td style="text-align: center">lolMiner.exe -–algo ETHASH –-pool daepool.com:4114 --ethstratum ETHPROXY --tls off -–user <code class="highlighter-rouge">account_name</code> --worker <code class="highlighter-rouge">worker_name</code> --pass <code class="highlighter-rouge">x</code></td>
+      <td style="text-align: center">-</td>
+    </tr>
+
+    </tbody>
+  </table>
+  <p>Replace <code class="highlighter-rouge">account_name</code> with your DAE mining account name set in Step 2.</p>
+
+
+  <section class="section-lg about pb-0">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-sm-6 mb-4">
+          <div class="rounded bg-white p-4 shadow-primary">
+            <i class="ti-layers-alt round-icon blue mb-4"></i>
+            <h4>HiveOS</h4>
+            <div class="col-lg-12 mb-100">
+              <p>How to set up HiveOS mining</p>
+              <p>1. Add your Wallet</p>
+              <p>2. Create FlightSheet</p>
+              <p>3. Write "DAE" to Coin</p>
+              <p>4. Choose your Wallet</p>
+              <p>5. Choose Pool options "Configure in miner"</p>
+              <p>6. Select lolMiner</p>
+              <p>7. Setup Miner Config</p>
+              <p>7. a) Algo: <b>ETHASH</b></p>
+              <p>7. b) Wallet: <b>%WAL%</b></p>
+              <p>7. c) Worker name: "<b>your DAE wallet</b>"</p>
+              <p>7. d) Pool server: <b>stratum+tcp://daepool.com</b></p>
+              <p>7. e) Port: <b>4114</b></p>
+              <p>8. <b>Apply Changes</b></p>
+              <p>9. Name: "your choice"</p>
+              <p>10. <b>Create Flight Sheet</b></p>
+              <p>11. Active this FlightSheet</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 mb-4">
+          <div class="rounded bg-white p-4 shadow-primary">
+            <i class="ti-layers-alt round-icon blue mb-4"></i>
+            <h4>RaveOS</h4>
+            <div class="col-lg-12 mb-100">
+              <p>How to set up RaveOS mining</p>
+              <p>1. Choose custom mining from left panel (only on web browser)</p>
+              <p>2. Coin -> Add</p>
+              <p>3. Coin name: DAE</p>
+              <p>4. Short name: DAE</p>
+              <p>5. Select algo: ETHASH</p>
+              <p>Next step si setup Pool</p>
+              <p>6. Enter Pool name: "daepool"</p>
+              <p>7. Enter Ewal template: %EWAL%</p>
+              <p>8. Urla template: %URL%</p>
+              <p>9. Choose coin: DAE</p>
+              <p>10. Pool mode and Conection type: Default</p>
+              <p>11. Add url: <b>daepool.com:4114</b></p>
+              <p>12. <b>SAVE</b></p>
+              <p>Left panel:  </p>
+              <p>Choose Wallet</p>
+              <p>1. Add wallet</p>
+              <p>2. Select coin: DAE</p>
+              <p>3. Select pool: daepool</p>
+              <p>4. tick url</p>
+              <p>5. enter your DAE wallet</p>
+              <p>6. Select miner</p>
+              <p>6. a) for nVidia cards choose T-rex or Lolminer</p>
+              <p>6. b) for AMD cards we recommended Lolminer or Phoenix miner</p>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <p>Finally, save the start file and exit. Double-click the start file when you’re ready to start mining.</p>
+
+
+</div>

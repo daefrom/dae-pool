@@ -1,0 +1,77 @@
+<div class="container">
+  <div id="settings" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div class="row">
+        <div id="alertSuccess" class="alert alert-success" role="alert">
+          Success
+        </div>
+        <div id="alertError" class="alert alert-danger" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          Error
+        </div>
+      </div>
+
+
+    <form action="/api/settings" method="post">
+
+        <div class="form-group">
+          <label for="InputEmail1">Settings</label>
+          <input type="hidden" id="login" name="login" value="{{model.login}}">
+          <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+                 placeholder="Enter email">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="threshold">Payment Threshold</label>
+          <input class="form-control" id="threshold" name="threshold" placeholder="min 1 - max 10000" min="1" max="10000"
+                 type='number' step='1'>
+          <small id="thresholdHelp" class="form-text text-muted">Payment threshold in {{config.Unit}}  (Min: 1, Max: 10000)</small>
+        </div>
+        <div class="form-group">
+          <label for="ip_address">Active Worker IP address</label>
+          <input class="form-control" name="ip_address" id="ip_address" placeholder="192.168.0.1" type="text">
+          <small id="ip_address" class="form-text text-muted">
+            Please complete your worker`s IP address in order to validate and save your settings.
+          </small>
+        </div>
+        <div class="form-group form-check">
+          <label class="form-check-label" for="worker_offline">
+            <input type="checkbox" name="alertCheck" class="form-check-input" id="alertCheck" checked> Send a mail if one of
+            my workers goes offline
+            <input type="checkbox" name="alertCheck" class="form-check-input" id="alertCheck" checked>
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    var $form = $('form');
+    $form.submit(function () {
+      $.post($(this).attr('action'), $(this).serialize(), function (response) {
+       console.log(response.result);
+        if (response.result == "success") {
+          $('#alertSuccess').html(response.result);
+          $("#alertSuccess").fadeIn(); //or fadeIn
+          setTimeout(function() {
+            $("#alertSuccess").fadeOut(); //or fadeOut
+          }, 5000);
+
+        } else {
+
+          $('#alertError').html(response.result);
+          $("#alertError").fadeIn(); //or fadeIn
+
+          setTimeout(function() {
+            $("#alertError").fadeOut(); //or fadeOut
+          }, 5000);
+        }
+
+      }, 'json');
+      return false;
+    });
+  });
+</script>

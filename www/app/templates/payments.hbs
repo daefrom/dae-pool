@@ -1,0 +1,63 @@
+<div class="jumbotron">
+  <div class="container">
+      <div class="col-lg-3 col-md-6">
+          <!-- small box -->
+          <div class="small-box bg-dark-blue">
+              <div class="inner ">
+                  <h3><span class="text-white">
+                      {{format-number model.paymentsTotal}}
+                  </span> </h3>
+                  <p> Total payments sent   </p>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="col-lg-3 col-md-6">
+          <!-- small box -->
+          <div class="small-box bg-dark-blue">
+              <div class="inner ">
+                  <h3><span class="text-white">
+                      {{format-balance model.paymentsSum}}
+                  </span> </h3>
+                  <p> Sum payments sent </p>
+              </div>
+          </div>
+      </div>
+
+
+  </div>
+</div>
+<div class="container">
+  {{#if model.payments}}
+  <h4>Latest Payouts</h4>
+  <div class="table-responsive">
+    <table class="table table-condensed table-striped">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Amount</th>
+          <th>Address</th>
+          <th>Tx ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each model.payments as |tx|}}
+          <tr>
+            <td>{{format-date-locale tx.timestamp}}</td>
+            <td>{{format-number tx.formatAmount}}</td>
+            <td>
+              <a href="https://daefrom.io/address/{{tx.address}}" class="hash" rel="nofollow" target="_blank">{{tx.address}}</a>
+            </td>
+            <td>
+              <a href="https://daefrom.io/tx/{{tx.tx}}" class="hash" rel="nofollow" target="_blank">{{format-tx tx.tx}}</a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  {{else}}
+  <h3>No payouts yet</h3>
+  {{/if}}
+</div>

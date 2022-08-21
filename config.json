@@ -1,0 +1,135 @@
+{
+	"threads": 2,
+	"coin": "dae-pplns",
+	"name": "main",
+	"pplns": 0,
+	"coin-name":"DAE",
+	"coin-solo": "dae-solo",
+
+	"proxy": {
+		"enabled": true,
+		"listen": "0.0.0.0:8880",
+		"limitHeadersSize": 1024,
+		"limitBodySize": 256,
+		"behindReverseProxy": false,
+		"blockRefreshInterval": "50ms",
+		"stateUpdateInterval": "3s",
+		"difficulty": 4000000000,
+		"hashrateExpiration": "3h",
+		"stratumHostname": "solo.daepool.com",
+
+		"healthCheck": true,
+		"debug": true,
+		"maxFails": 100,
+
+		"stratum": {
+			"enabled": true,
+			"listen": "0.0.0.0:4114",
+			"timeout": "120s",
+			"maxConn": 8192,
+			"tls": false,
+			"certFile": "/home/var/pool/fullchain1.pem",
+			"keyFile": "/home/var/pool/privkey1.pem"
+		},
+
+		"policy": {
+			"workers": 8,
+			"resetInterval": "60m",
+			"refreshInterval": "1m",
+
+			"banning": {
+				"enabled": true,
+				"ipset": "blacklist",
+				"timeout": 1800,
+				"invalidPercent": 30,
+				"checkThreshold": 30,
+				"malformedLimit": 5
+			},
+			"limits": {
+				"enabled": false,
+				"limit": 30,
+				"grace": "5m",
+				"limitJump": 10
+			}
+		}
+	},
+
+	"api": {
+		"enabled": true,
+		"purgeOnly": false,
+		"purgeInterval": "10m",
+		"listen": "0.0.0.0:8081",
+		"statsCollectInterval": "5s",
+		"hashrateWindow": "10m",
+		"hashrateLargeWindow": "3h",
+		"luckWindow": [64, 128, 256],
+		"payments": 30,
+		"blocks": 50,
+		"poolCharts":"*/10 * * * *",
+		"poolChartsNum":216,
+		"minerCharts":"*/10 * * * *",
+		"minerChartsNum":144
+	},
+
+
+	"upstreamCheckInterval": "5s",
+	"upstream": [
+		{
+			"name": "main",
+			"url": "http://127.0.0.1:8545",
+			"timeout": "10s"
+		},
+		{
+			"name": "backup",
+			"url": "http://127.0.0.1:8545",
+			"timeout": "10s"
+		}
+	],
+
+	"redis": {
+		"endpoint": "127.0.0.1:6379",
+		"poolSize": 10,
+		"database": 1,
+		"password": ""
+	},
+
+	"unlocker": {
+		"enabled": false,
+		"poolFee": 1.0,
+		"poolFeeAddress": "0xc257A7D72dF4bf685eF5D82CDcB9eCD6cA86c4b6",
+		"donate": true,
+		"depth": 120,
+		"immatureDepth": 20,
+		"keepTxFees": false,
+		"interval": "10m",
+		"daemon": "http://127.0.0.1:854",
+		"timeout": "10s"
+	},
+
+	"payouts": {
+		"enabled": false,
+		"requirePeers": 2,
+		"interval": "5m",
+		"daemon": "http://127.0.0.1:854",
+		"timeout": "10s",
+		"address": "0xc257A7D72dF4bf685eF5D82CDcB9eCD6cA86c4b6",
+		"gas": "2100",
+		"gasPrice": "50000000000",
+		"autoGas": true,
+		"threshold": 5000000000,
+		"bgsave": false
+	},
+
+	"exchange": {
+		"enabled": true,
+		"url": "https://graviex.net:443//webapi/v3/tickers/daebtc.json",
+		"timeout": "50s",
+		"refreshInterval": "300s"
+	},
+
+
+	"newrelicEnabled": false,
+	"newrelicName": "MyEtherProxy",
+	"newrelicKey": "SECRET_KEY",
+	"newrelicVerbose": false
+}

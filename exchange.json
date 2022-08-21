@@ -1,0 +1,66 @@
+
+
+{
+  "threads": 2,
+  "coin": "dae-pplns",
+  "name": "main",
+  "pplns": 100000,
+  "coin-name":"DAE",
+  "coin-solo": "dae-solo",
+
+  "proxy": {
+    "enabled": false
+  },
+
+  "api": {
+    "enabled": false,
+    "purgeOnly": false,
+    "purgeInterval": "10m",
+    "listen": "0.0.0.0:8080",
+    "statsCollectInterval": "5s",
+    "hashrateWindow": "30m",
+    "hashrateLargeWindow": "3h",
+    "luckWindow": [64, 128, 256],
+    "payments": 30,
+    "blocks": 50,
+    "poolCharts":"*/10 * * * *",
+    "poolChartsNum":216,
+    "minerCharts":"*/10 * * * *",
+    "minerChartsNum":144
+  },
+
+  "upstreamCheckInterval": "5s",
+  "upstream": [
+    {
+      "name": "main",
+      "url": "http://127.0.0.1:4234",
+      "timeout": "10s"
+    }
+  ],
+  "redis": {
+    "endpoint": "127.0.0.1:6379",
+    "poolSize": 10,
+    "database": 1,
+    "password": ""
+  },
+
+  "unlocker": {
+    "enabled": false
+  },
+
+  "payouts": {
+    "enabled": false
+  },
+
+  "exchange": {
+    "enabled": true,
+    "url": "",
+    "timeout": "50s",
+    "refreshInterval": "10s"
+  },
+
+  "newrelicEnabled": false,
+  "newrelicName": "PROXY01_ETC_MUMBAI",
+  "newrelicKey": "b30cd005408cbe2bcef6e081dc0a7ea2fe6c6a18",
+  "newrelicVerbose": false
+}

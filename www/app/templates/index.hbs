@@ -1,0 +1,457 @@
+<!--<div class="jumbotron">-->
+<!--  <div class="container">-->
+<!--    <div class="row">-->
+<!--      <div class="col-md-5">-->
+<!--        <h1 style="font-size: 24px">-->
+<!--          <strong>DAE PPLNS</strong>-->
+<!--        </h1>-->
+<!--        <strong>Min. payout threshold: {{config.PayoutThreshold}}</strong>, Payouts are made automatically every 2 hours..<br/>-->
+<!--        <span class="label label-success">PPLNS</span> Stable and profitable pool with regular payouts.-->
+<!--        <br/>-->
+<!--        <span class="label label-success">SOLO</span> Block finder wins all incl. Tx fees & Uncle inclusion rewards.-->
+<!--      </div>-->
+<!--      <div class="col-md-3 stats">-->
+<!--        <div><i class="fa fa-users"></i> Miners Online: <span id="poolHashrate">{{format-number
+        stats.model.minersTotal}}</span></div>-->
+<!--        <div><i class="fa fa-tachometer"></i> Pool Hash Rate: <span id="poolHashrate">{{format-hashrate
+        stats.model.hashrate}}</span></div>-->
+<!--        <div><i class="fa fa-money"></i> Pool Fee: <span id="poolFee" class="label label-success">{{config.PoolFee}}</span></div>-->
+        <!--        {{#if stats.model.stats.lastBlockFound}}-->
+<!--        <div><i class="fa fa-clock-o"></i> Last Block Found: <span>{{format-relative
+        (seconds-to-ms stats.model.stats.lastBlockFound)}}</span></div>-->
+        <!--        {{/if}}-->
+<!--      </div>-->
+<!--      <div class="col-md-4 stats">-->
+<!--        <div><i class="fa fa-unlock-alt"></i> Network Difficulty: <span>{{with-metric-prefix
+        stats.difficulty}}</span></div>-->
+<!--        <div><i class="fa fa-tachometer"></i> Network Hash Rate: <span>{{format-hashrate
+        stats.hashrate}}</span></div>-->
+<!--        <div><i class="fa fa-bars"></i> Blockchain Height: <span>{{format-number stats.height}}</span></div>-->
+<!--        <div><i class="fa fa-clock-o"></i> Current Round Variance: <span>{{format-number stats.roundVariance
+                                                                                             style='percent'}}</span></div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="jumbotron">
+    <div class="container">
+
+        <div class="col-lg-2 col-md-4">
+            <!-- small box -->
+            <div class="small-box bg-navy">
+                <div class="inner ">
+                    <h3><span class="text-white">
+                        {{format-hashrate stats.hashrate}}
+                    </span></h3>
+                    <p> Network Hash Rate </p>
+                </div>
+                <div class="icon"><i class="fa fa-line-chart"></i></div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-2 col-md-4">
+            <!-- small box -->
+            <div class="small-box bg-navy">
+                <div class="inner ">
+                    <h3><span class="text-white">
+                        {{with-metric-prefix stats.difficulty}}
+                    </span></h3>
+                    <p> Network Difficulty </p>
+
+                </div>
+                <div class="icon"><i class="fa fa-bar-chart"></i></div>
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-4">
+            <!-- small box -->
+            <div class="small-box bg-navy">
+                <div class="inner ">
+                    <h3><span class="text-white">
+                        {{format-number stats.height}}
+                    </span></h3>
+                    <p> Blockchain Height </p>
+
+                </div>
+                <div class="icon"><i class="fa fa-cube"></i></div>
+
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-4">
+            <!-- small box -->
+            <div class="small-box bg-navy">
+                <div class="inner ">
+                    <h3><span class="text-white">
+                        {{config.PoolFee}}
+                    </span></h3>
+                    <p> Pool Fee </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-money"></i>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-4">
+            <!-- small box -->
+            <div class="small-box bg-navy">
+                <div class="inner ">
+                    <h3><span class="text-white">
+                        {{config.ShareDifficulty}}
+                    </span></h3>
+                    <p> Share Difficulty </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-balance-scale"></i>
+                </div>
+
+            </div>
+        </div>
+
+      <div class="col-lg-2 col-md-4">
+                <!-- small box -->
+                <div class="small-box bg-navy">
+                    <div class="inner ">
+                        <h3><span class="text-white">
+                        {{#if stats.roundVariance}}
+                          {{format-number stats.roundVariance style='percent'}}
+                          {{else}}
+                          -
+                          {{/if}}
+                        </span></h3>
+                          <p> Current Pool Luck </p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-gavel"></i>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+    </div>
+    <div class="container">
+
+        <div class="col-lg-3 col-md-6">
+            <!-- small box -->
+            <div class="small-box bg-blue">
+                <div class="inner ">
+                    <h3><span class="text-white">
+                        {{format-hashrate stats.model.hashrate}}
+                    </span></h3>
+                    <p> POOL HASHRATE </p>
+
+                </div>
+                <div class="icon"><i class="fa fa-dashboard"></i></div>
+                {{#link-to 'miners'}}
+                    <div class="panel-footer">
+                        <span class="pull-left">View All Miners</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                {{/link-to}}
+            </div>
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner ">
+                    <h3><span class="text-white">
+                        {{format-number stats.model.minersTotal}}
+                    </span></h3>
+                    <p> ACTIVE MINERS </p>
+
+                </div>
+                <div class="icon"><i class="fa fa-users"></i></div>
+                {{#link-to 'miners'}}
+                    <div class="panel-footer">
+                        <span class="pull-left">View All Active Miners</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                {{/link-to}}
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <!-- small box -->
+            <div class="small-box bg-red">
+                <div class="inner ">
+                    <h3><span class="text-white">
+                        {{format-number model.maturedTotal }}
+                    </span></h3>
+                    <p> {{#if stats.model.stats.lastBlockFound}}
+                        <i class="fa fa-clock-o"></i> Last Block : <span>{{format-relative
+                            (seconds-to-ms stats.model.stats.lastBlockFound)}}</span>
+                    {{else}}
+                        NO NEW BLOCKS
+                    {{/if}}    </p>
+
+                </div>
+                <div class="icon"><i class="fa fa-cubes"></i></div>
+                {{#link-to 'blocks'}}
+                    <div class="panel-footer">
+                        <span class="pull-left">View Pool Blocks</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                {{/link-to}}
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <!-- small box -->
+            <div class="small-box bg-light-blue">
+                <div class="inner ">
+                    <h3><span class="text-white">
+                        {{format-ethusd  stats.model.exchangedata.price_usd }}
+                    </span></h3>
+                    <p> {{format-date-locale stats.model.exchangedata.last_updated }} </p>
+                </div>
+                <div class="icon">
+
+                    <i class="fa fa-btc"></i>
+
+                </div>
+
+<!--                {{#link-to 'exchange'}}-->
+              <!--                {{/link-to}}-->
+            <span  class="ember-view" style="color: #337ab74d;">
+              <div class="panel-footer">
+                        <span class="pull-left">View Exchange Data</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+            </span>
+
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+{{#if config.highcharts.main.enabled}}
+    <div class="container">
+        {{high-charts mode=chartMode chartOptions=chartOptions content=chartData}}
+    </div>
+{{/if}}
+
+<div class="container">
+
+</div>
+
+<div class="container">
+
+    <div class="col-lg-9">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <i class="fa fa-user fa-fw"></i> MINER STATUS
+            </div>
+            <div class="panel-body">
+                <div class="input-group">
+                    {{input value=cachedLogin class="form-control" placeholder="Enter Your Address"}}
+                    <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" {{action 'lookup' cachedLogin}}>
+                                    <span style="display: inline;"><i class="fa fa-search"></i> SEARCH</span>
+                            </button>
+                        </span>
+                </div>
+            </div>
+        </div>
+
+
+
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <i class="fa fa-question-circle-o fa-fw"></i> SETUP GUIDE
+                </div>
+                <div class="panel-body">
+
+                    <ul class="nav nav-tabs" id="myTab">
+
+                        <li class="active"><a data-target="#general" data-toggle="tab"><i class="fa fa-info fa-fw"></i> INFORMATION</a></li>
+                        <li><a data-target="#setup" data-toggle="tab"><i class="fa fa-download fa-fw"></i> QUICK SETUP</a></li>
+                        <li><a data-target="#nicehash" data-toggle="tab"><i class="fa fa-credit-card-alt fa-fw"></i> NICEHASH SETUP</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+
+
+                        <div class="tab-pane active" id="general">
+                            <div class="col-lg-12">
+                                <div class="panel">
+                                    <div class="panel-body"  style="padding-top:0px;padding-bottom:0px">
+                                        <h3 class="text-green"><i class="fa fa-ravelry fa-fw"></i>FEATURES</h3>
+                                        <div class="panel-body bs-callout bs-callout-success">
+                                            <div class="" id="callout-labels-inline-block" >
+                                                <ul class="list-group">
+                                                    <li class="list-group-item">
+                                                        <i class="fa fa-user-secret fa-fw"></i> Anonymous mining, No Registration required
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <i class="fa fa-mobile fa-fw"></i> Email notification system
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <i class="fa fa-bar-chart fa-fw"></i> Detailed statistics per-worker
+                                                    </li>
+
+                                                    <li class="list-group-item">
+                                                        <i class="fa fa-sun-o fa-fw"></i>Customizable minimum payment threshold, for customize go to account settings
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <i class="fa fa-money fa-fw"></i> We pay all {{config.Unit}} rewards (Blocks, Uncles)
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <i class="fa fa-sitemap fa-fw"></i> Share Difficulty : {{config.ShareDifficulty}}, Efficient for miners
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <i class="fa fa-download fa-fw"></i> Payout are processed {{config.PaymentText}}
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="panel">
+                                    <div class="panel-body" style="padding-top:0px;padding-bottom:0px">
+                                        <h3 class="text-orange"><i class="fa fa-calendar fa-fw"></i>FUTURE SCOPE</h3>
+                                        <div class="panel-body bs-callout bs-callout-warning">
+                                            <div class="" id="callout-labels-inline-block">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item">
+                                                        <i class="fa fa-language fa-fw"></i>  Various Language options
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="tab-pane" id="setup">
+                            <div class="col-lg-12">
+                                <div class="panel">
+                                    <div class="panel-body">
+
+                                            <h3 class="text-green"><i class="fa fa-gavel fa-fw"></i>Phoenix GPU Miner</h3>
+                                            <div class="panel-body">
+
+
+                                                <div class="bs-callout bs-callout-info" id="callout-labels-inline-block">
+                                                    <h4><i class="fa fa-cogs fa-fw"></i>Configuration File</h4>Put the following commands into a file <kbd>start.bat</kbd> and double click to start your miner
+                                                    <ul class="list-group">
+                                                        <br>
+                                                        <dt>Windows</dt>
+                                                        <li class="list-group-item">
+                                                <span style="font-family: 'Anonymous Pro';">
+                                                  setx GPU_FORCE_64BIT_PTR 0<br/>
+                                                  setx GPU_MAX_HEAP_SIZE 100<br/>
+                                                  setx GPU_USE_SYNC_OBJECTS 1<br/>
+                                                  setx GPU_MAX_ALLOC_PERCENT 100<br/>
+                                                  setx GPU_SINGLE_ALLOC_PERCENT 100<br/>
+                                                  PhoenixMiner.exe -pool stratum+tcp://{{config.StratumHost}}:{{config.StratumPort}} -wal <kbd>{{config.CoinName}}Address</kbd> -worker <kbd>WORKERNAME</kbd> -pass x
+
+                                                 </span>
+                                                        </li>
+                                                        <dt>Linux</dt>
+                                                        <li class="list-group-item">
+                                                <span style="font-family: 'Anonymous Pro';">
+                                                  <h4>./PhoenixMiner -pool stratum+tcp://{{config.StratumHost}}:{{config.StratumPort}} -wal <kbd>{{config.CoinName}}Address</kbd> -worker <kbd>WORKERNAME</kbd> -pass x </h4>
+
+                                                </span>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+
+
+
+
+
+                                            </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="nicehash">
+                            <div class="col-lg-12">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <h3 class="text-green"><i class="fa fa-server fa-fw"></i>Nicehash setup</h3>
+
+
+                                            <div class="panel-body">
+
+
+                                                <div class="bs-callout bs-callout-info" id="callout-labels-inline-block">
+
+                                                    <ul class="list-group">
+                                                        <br>
+
+                                                        <li class="list-group-item">
+                                                <span style="font-family: 'Anonymous Pro';">
+
+                                                    <h4>Server Address: <kbd class="text-black">{{config.StratumHost}}</kbd> </h4>
+                                                    <h4>Server Port: <kbd class="text-black">{{config.NiceHashPort}} </kbd></h4>
+                                                    <h4>Username:  <kbd class="text-black">{{config.Unit}} Address</kbd></h4>
+                                                    <h4>Password: <kbd class="text-black">#</kbd></h4>
+                                                </span>
+                                                        </li>
+
+
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+     </div>
+    <div class="col-lg-3">
+            <div class="chat-panel panel panel-success">
+                <div class="panel-heading">
+                    <i class="fa fa-twitter fa-fw"></i> UPDATES
+                    <div class="btn-group pull-right">
+
+                    </div>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    {{#twitter-feed}}
+                        <a class="twitter-timeline" href="{{config.TwitterURL}}{{config.TwitterHash}}"
+                           data-tweet-limit="4">Tweets by {{config.TwitterHash}}</a>
+                    {{/twitter-feed}}
+                </div>
+                <!-- /.panel-body -->
+
+                <!-- /.panel-footer -->
+            </div>
+        </div>
+
+</div>
+
+<div class="container">
+
+
+</div>
