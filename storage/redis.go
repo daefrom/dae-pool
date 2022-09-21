@@ -387,11 +387,8 @@ func (r *RedisClient) WriteBlock(login, id string, params []string, diff, roundD
 			totalShares += n
 		}
 		hashHex := strings.Join(params, ":")
-		if r.GetMiningType(login) != "solo" {
-			s = join(hashHex, ts, roundDiff, totalShares, login, id, "pplns")
-		} else {
-			s = join(hashHex, ts, roundDiff, totalShares, login, id, "solo")
-		}
+		s = join(hashHex, ts, roundDiff, totalShares, login, id, "pplns")
+
 		//log.Println("CANDIDATES s :  ", s)
 		cmd := r.client.ZAdd(r.formatKey("blocks", "candidates"), redis.Z{Score: float64(height), Member: s})
 		return false, cmd.Err()
@@ -456,11 +453,9 @@ func (r *RedisClient) WriteBlockSolo(login, id string, params []string, diff, ro
 			totalShares += n
 		}
 		hashHex := strings.Join(params, ":")
-		if r.GetMiningType(login) != "solo" {
-			s = join(hashHex, ts, roundDiff, totalShares, login, id, "pplns")
-		} else {
-			s = join(hashHex, ts, roundDiff, totalShares, login, id, "solo")
-		}
+
+		s = join(hashHex, ts, roundDiff, totalShares, login, id, "solo")
+
 		//log.Println("CANDIDATES s :  ", s)
 		cmd := r.client.ZAdd(r.formatKey("blocks", "candidates"), redis.Z{Score: float64(height), Member: s})
 		return false, cmd.Err()
@@ -797,10 +792,8 @@ func (r *RedisClient) WriteReward(login string, amount int64, percent *big.Rat, 
 func (r *RedisClient) WriteImmatureBlock(block *BlockData, roundRewards map[string]int64) error {
 	tx := r.client.Multi()
 	defer tx.Close()
-	miningType := r.GetMiningType(block.Finder)
-
 	_, err := tx.Exec(func() error {
-		r.writeImmatureBlock(tx, block, miningType)
+		r.writeImmatureBlock(tx, block)
 		total := int64(0)
 		for login, amount := range roundRewards {
 
@@ -829,9 +822,9 @@ func (r *RedisClient) WriteMaturedBlock(block *BlockData, roundRewards map[strin
 
 	ts := util.MakeTimestamp() / 1000
 	value := join(block.Hash, ts, block.Reward)
-	miningType := r.GetMiningType(block.Finder)
+
 	_, err = tx.Exec(func() error {
-		r.writeMaturedBlock(tx, block, miningType)
+		r.writeMaturedBlock(tx, block)
 		tx.ZAdd(r.formatKey("credits", "all"), redis.Z{Score: float64(block.Height), Member: value})
 
 		// Decrement immature balances
@@ -873,9 +866,8 @@ func (r *RedisClient) WriteOrphan(block *BlockData) error {
 		return err
 	}
 	defer tx.Close()
-	miningType := r.GetMiningType(block.Finder)
 	_, err = tx.Exec(func() error {
-		r.writeMaturedBlock(tx, block, miningType)
+		r.writeMaturedBlock(tx, block)
 
 		// Decrement immature balances
 		totalImmature := int64(0)
@@ -900,15 +892,14 @@ func (r *RedisClient) WritePendingOrphans(blocks []*BlockData) error {
 
 	_, err := tx.Exec(func() error {
 		for _, block := range blocks {
-			miningType := r.GetMiningType(block.Finder)
-			r.writeImmatureBlock(tx, block, miningType)
+			r.writeImmatureBlock(tx, block)
 		}
 		return nil
 	})
 	return err
 }
 
-func (r *RedisClient) writeImmatureBlock(tx *redis.Multi, block *BlockData, miningType string) {
+func (r *RedisClient) writeImmatureBlock(tx *redis.Multi, block *BlockData) {
 
 	if block.Height != block.RoundHeight {
 		tx.Rename(r.formatRound(block.RoundHeight, block.Nonce), r.formatRound(block.Height, block.Nonce))
@@ -919,7 +910,7 @@ func (r *RedisClient) writeImmatureBlock(tx *redis.Multi, block *BlockData, mini
 
 }
 
-func (r *RedisClient) writeMaturedBlock(tx *redis.Multi, block *BlockData, miningType string) {
+func (r *RedisClient) writeMaturedBlock(tx *redis.Multi, block *BlockData) {
 
 	tx.Del(r.formatRound(block.RoundHeight, block.Nonce))
 
