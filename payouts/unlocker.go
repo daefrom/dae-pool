@@ -305,8 +305,7 @@ func (u *BlockUnlocker) unlockPendingBlocks() {
 	totalPoolProfit := new(big.Rat)
 
 	for _, block := range result.maturedBlocks {
-		miningType := u.backend.GetMiningType(block.Finder)
-		block.MiningType = miningType
+
 		revenue, minersProfit, poolProfit, roundRewards, percents, err := u.calculateRewards(block)
 		if err != nil {
 			u.halt = true
@@ -487,35 +486,19 @@ func (u *BlockUnlocker) calculateRewards(block *storage.BlockData) (*big.Rat, *b
 	for _, val := range shares {
 		totalShares += val
 	}
-	miningType := u.backend.GetMiningType(block.Finder)
 
-	if miningType == "solo" {
-		rewards, percents := calculateRewardsForFinder(block.Finder, totalShares, minersProfit)
-		if block.ExtraReward != nil {
-			extraReward := new(big.Rat).SetInt(block.ExtraReward)
-			poolProfit.Add(poolProfit, extraReward)
-			revenue.Add(revenue, extraReward)
-		}
-
-		if len(u.config.PoolFeeAddress) != 0 {
-			address := strings.ToLower(u.config.PoolFeeAddress)
-			rewards[address] += weiToShannonInt64(poolProfit)
-		}
-		return revenue, minersProfit, poolProfit, rewards, percents, nil
-	} else {
-		rewards, percents := calculateRewardsForShares(shares, totalShares, minersProfit, u)
-		if block.ExtraReward != nil {
-			extraReward := new(big.Rat).SetInt(block.ExtraReward)
-			poolProfit.Add(poolProfit, extraReward)
-			revenue.Add(revenue, extraReward)
-		}
-
-		if len(u.config.PoolFeeAddress) != 0 {
-			address := strings.ToLower(u.config.PoolFeeAddress)
-			rewards[address] += weiToShannonInt64(poolProfit)
-		}
-		return revenue, minersProfit, poolProfit, rewards, percents, nil
+	rewards, percents := calculateRewardsForShares(shares, totalShares, minersProfit, u)
+	if block.ExtraReward != nil {
+		extraReward := new(big.Rat).SetInt(block.ExtraReward)
+		poolProfit.Add(poolProfit, extraReward)
+		revenue.Add(revenue, extraReward)
 	}
+
+	if len(u.config.PoolFeeAddress) != 0 {
+		address := strings.ToLower(u.config.PoolFeeAddress)
+		rewards[address] += weiToShannonInt64(poolProfit)
+	}
+	return revenue, minersProfit, poolProfit, rewards, percents, nil
 
 }
 
@@ -524,16 +507,10 @@ func calculateRewardsForShares(shares map[string]int64, total int64, reward *big
 	percents := make(map[string]*big.Rat)
 
 	for login, n := range shares {
-		miningType := u.backend.GetMiningType(login)
-		if miningType != "solo" {
-			percents[login] = big.NewRat(n, total)
-			workerReward := new(big.Rat).Mul(reward, percents[login])
-			rewards[login] += weiToShannonInt64(workerReward)
-		} else {
-			percents[login] = big.NewRat(0, 1)
-			workerReward := &big.Rat{} //new(big.Rat).Mul( reward, percents[login])
-			rewards[login] += weiToShannonInt64(workerReward)
-		}
+
+		percents[login] = big.NewRat(n, total)
+		workerReward := new(big.Rat).Mul(reward, percents[login])
+		rewards[login] += weiToShannonInt64(workerReward)
 
 	}
 	return rewards, percents

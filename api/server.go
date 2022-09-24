@@ -486,13 +486,9 @@ func (s *ApiServer) AccountIndex(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		miningType := s.backend.GetMiningType(login)
 		var stats map[string]interface{}
-		if miningType == "solo" {
-			stats, err = s.backend.GetMinerStatsSolo(login, s.config.Payments)
-		} else {
-			stats, err = s.backend.GetMinerStats(login, s.config.Payments)
-		}
+
+		stats, err = s.backend.GetMinerStats(login, s.config.Payments)
 
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
