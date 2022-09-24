@@ -385,6 +385,7 @@ func (r *RedisClient) WriteBlock(login, id string, params []string, diff, roundD
 			n, _ := strconv.ParseInt(v, 10, 64)
 			totalShares += n
 		}
+		log.Printf("TotalShares PPLNS:", totalShares)
 		hashHex := strings.Join(params, ":")
 		s = join(hashHex, ts, roundDiff, totalShares, login, id, "pplns")
 		//log.Println("CANDIDATES s :  ", s)
@@ -450,9 +451,10 @@ func (r *RedisClient) WriteBlockSolo(login, id string, params []string, diff, ro
 			n, _ := strconv.ParseInt(v, 10, 64)
 			totalShares += n
 		}
+		log.Printf("TotalShares SOLO :", totalShares)
 		hashHex := strings.Join(params, ":")
 
-		s = join(hashHex, ts, roundDiff, int64(0), login, id, "solo")
+		s = join(hashHex, ts, roundDiff, totalShares, login, id, "solo")
 
 		//log.Println("CANDIDATES s :  ", s)
 		cmd := r.client.ZAdd(r.formatKey("blocks", "candidates"), redis.Z{Score: float64(height), Member: s})
