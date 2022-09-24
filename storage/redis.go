@@ -289,7 +289,7 @@ func (r *RedisClient) WriteShareSolo(login, id string, params []string, diff int
 
 	_, err = tx.Exec(func() error {
 		r.writeShare(tx, ms, ts, login, id, diff, window, hostname, int64(0))
-		tx.HIncrBy(r.formatKey("stats"), "roundShares", diff)
+		tx.HIncrBy(r.formatKey("stats"), "roundShares_solo", diff)
 		return nil
 	})
 	return false, err
@@ -413,11 +413,11 @@ func (r *RedisClient) WriteBlockSolo(login, id string, params []string, diff, ro
 	cmds, err := tx.Exec(func() error {
 		r.writeShare(tx, ms, ts, login, id, diff, window, hostname, int64(0))
 		tx.HSet(r.formatKey("stats"), "lastBlockFound", strconv.FormatInt(ts, 10))
-		tx.HDel(r.formatKey("stats"), "roundShares")
+		tx.HDel(r.formatKey("stats"), "roundShares_solo")
 		tx.ZIncrBy(r.formatKey("finders"), 1, login)
 		tx.HIncrBy(r.formatKey("miners", login), "blocksFound", 1)
-		tx.HGetAllMap(r.formatKey("shares", "roundCurrent"))
-		tx.Del(r.formatKey("shares", "roundCurrent"))
+		tx.HGetAllMap(r.formatKey("shares", "roundC_solourrent_solo"))
+		tx.Del(r.formatKey("shares", "roundCurrent_solo"))
 		tx.LRange(r.formatKey("lastshares"), 0, 0)
 		return nil
 	})
@@ -475,8 +475,11 @@ func (r *RedisClient) writeShare(tx *redis.Multi, ms, ts int64, login, id string
 		tx.LPush(r.formatKey("lastshares"), login)
 	}
 	tx.LTrim(r.formatKey("lastshares"), 0, pplns)
-
-	tx.HIncrBy(r.formatKey("shares", "roundCurrent"), login, diff)
+	if pplns > 0 {
+		tx.HIncrBy(r.formatKey("shares", "roundCurrent"), login, diff)
+	} else {
+		tx.HIncrBy(r.formatKey("shares", "roundCurrent_solo"), login, diff)
+	}
 	// For aggregation of hashrate, to store value in hashrate key
 	tx.ZAdd(r.formatKey("hashrate"), redis.Z{Score: float64(ts), Member: join(diff, login, id, ms, diff, hostname)})
 	// For separate miner's workers hashrate, to store under hashrate table under login key
