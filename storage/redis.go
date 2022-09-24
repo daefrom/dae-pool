@@ -413,12 +413,12 @@ func (r *RedisClient) WriteBlockSolo(login, id string, params []string, diff, ro
 	cmds, err := tx.Exec(func() error {
 		r.writeShare(tx, ms, ts, login, id, diff, window, hostname, int64(0))
 		tx.HSet(r.formatKey("stats"), "lastBlockFound", strconv.FormatInt(ts, 10))
-		tx.HDel(r.formatKey("stats"), "roundShares_solo")
+		tx.HDel(r.formatKey("stats"), "roundShares")
 		tx.ZIncrBy(r.formatKey("finders"), 1, login)
 		tx.HIncrBy(r.formatKey("miners", login), "blocksFound", 1)
-		tx.HGetAllMap(r.formatKey("shares", "roundCurrent_solo"))
-		tx.Del(r.formatKey("shares", "roundCurrent_solo"))
-		tx.LRange(r.formatKey("lastshares_solo"), 0, 0)
+		tx.HGetAllMap(r.formatKey("shares", "roundCurrent"))
+		tx.Del(r.formatKey("shares", "roundCurrent"))
+		tx.LRange(r.formatKey("lastshares"), 0, 0)
 		return nil
 	})
 	if err != nil {
@@ -492,10 +492,6 @@ func (r *RedisClient) formatKey(args ...interface{}) string {
 
 func (r *RedisClient) formatRound(height int64, nonce string) string {
 	return r.formatKey("shares", "round"+strconv.FormatInt(height, 10), nonce)
-}
-
-func (r *RedisClient) formatRoundSolo(height int64, nonce string) string {
-	return r.formatKey("shares_solo", "round"+strconv.FormatInt(height, 10), nonce)
 }
 
 func join(args ...interface{}) string {
