@@ -34,7 +34,7 @@ For Ubuntu 16.04 LTS blank install:
 GoLang
 
     wget https://dl.google.com/go/go1.18.3.linux-amd64.tar.gz
-    sudo tar -C /usr/local -xzf o1.18.3.linux-amd64.tar.gz
+    sudo tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz
     export GOROOT=/usr/local/go
     export GOPATH=$HOME/go
     export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
