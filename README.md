@@ -20,7 +20,7 @@
 Dependencies:
 
   * go >= 1.7
-  * geth
+  * [go-dae](https://github.com/daefrom/go-dae)
   * redis-server >= 2.8.0
   * nodejs
   * nginx
