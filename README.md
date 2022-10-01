@@ -63,6 +63,10 @@ Clone & compile:
     sudo chmod 755 -R *
     make
 
+if you have troubles with redis v3, please run: 
+
+    apt-get install --reinstall ca-certificates
+
 Install redis-server.
 
 ### Running Pool
