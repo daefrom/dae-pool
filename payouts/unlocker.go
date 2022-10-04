@@ -36,8 +36,6 @@ var homesteadReward = math.MustParseBig256("5000000000000000000")
 var byzantiumReward = math.MustParseBig256("3000000000000000000")
 var classicReward = math.MustParseBig256("3200000000000000000")
 
-var NewUncleReward = math.MustParseBig256("125000000000000000")
-
 type BlockUnlocker struct {
 	config   *UnlockerConfig
 	backend  *storage.RedisClient
@@ -558,14 +556,11 @@ func weiToShannonInt64(wei *big.Rat) int64 {
 }
 
 func getConstReward(height int64, isClassic bool) *big.Int {
-	if !isClassic {
-		if height >= byzantiumHardForkHeight {
-			return new(big.Int).Set(byzantiumReward)
-		}
-		return new(big.Int).Set(homesteadReward)
-	} else {
-		return new(big.Int).Set(classicReward)
+	if height >= byzantiumHardForkHeight {
+		return new(big.Int).Set(byzantiumReward)
 	}
+	return new(big.Int).Set(homesteadReward)
+
 }
 
 func getRewardForUncle(height int64) *big.Int {
@@ -574,18 +569,11 @@ func getRewardForUncle(height int64) *big.Int {
 }
 
 func getUncleReward(uHeight, height int64, isClassic bool) *big.Int {
-	if !isClassic {
-		reward := getConstReward(height, isClassic)
-		k := height - uHeight
-		reward.Mul(big.NewInt(8-k), reward)
-		reward.Div(reward, big.NewInt(8))
-		return reward
-	} else {
-		reward := getConstReward(height, isClassic)
-		reward.Mul(reward, big.NewInt(3125))
-		reward.Div(reward, big.NewInt(100000))
-		return reward
-	}
+	reward := getConstReward(height, isClassic)
+	k := height - uHeight
+	reward.Mul(big.NewInt(8-k), reward)
+	reward.Div(reward, big.NewInt(8))
+	return reward
 
 }
 
