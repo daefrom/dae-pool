@@ -77,7 +77,7 @@ func TestGetUncleReward(t *testing.T) {
 		6: "1250000000000000000",
 	}
 	for i := int64(1); i < 7; i++ {
-		rewards[i] = getUncleReward(1, i+1, true).String()
+		rewards[i] = getUncleReward(1, i+1).String()
 	}
 	for i, reward := range rewards {
 		if expectedRewards[i] != rewards[i] {
@@ -98,7 +98,7 @@ func TestGetByzantiumUncleReward(t *testing.T) {
 		7: "375000000000000000",
 	}
 	for i := int64(1); i < 8; i++ {
-		rewards[i] = getUncleReward(byzantiumHardForkHeight, byzantiumHardForkHeight+i, true).String()
+		rewards[i] = getUncleReward(byzantiumHardForkHeight, byzantiumHardForkHeight+i).String()
 	}
 	for i, reward := range rewards {
 		if expectedRewards[i] != rewards[i] {

@@ -34,7 +34,6 @@ const byzantiumHardForkHeight = 5000000
 
 var homesteadReward = math.MustParseBig256("5000000000000000000")
 var byzantiumReward = math.MustParseBig256("3000000000000000000")
-var classicReward = math.MustParseBig256("3200000000000000000")
 
 type BlockUnlocker struct {
 	config   *UnlockerConfig
@@ -236,7 +235,7 @@ func handleUncle(height int64, uncle *rpc.GetBlockReply, candidate *storage.Bloc
 	if err != nil {
 		return err
 	}
-	reward := getUncleReward(uncleHeight, height, true)
+	reward := getUncleReward(uncleHeight, height)
 	candidate.Height = height
 	candidate.UncleHeight = uncleHeight
 	candidate.Orphan = false
@@ -524,7 +523,7 @@ func weiToShannonInt64(wei *big.Rat) int64 {
 	return value
 }
 
-func getConstReward(height int64, isClassic bool) *big.Int {
+func getConstReward(height int64) *big.Int {
 	if height >= byzantiumHardForkHeight {
 		return new(big.Int).Set(byzantiumReward)
 	}
@@ -533,12 +532,12 @@ func getConstReward(height int64, isClassic bool) *big.Int {
 }
 
 func getRewardForUncle(height int64) *big.Int {
-	reward := getConstReward(height, false)
+	reward := getConstReward(height)
 	return new(big.Int).Div(reward, new(big.Int).SetInt64(32))
 }
 
-func getUncleReward(uHeight, height int64, isClassic bool) *big.Int {
-	reward := getConstReward(height, isClassic)
+func getUncleReward(uHeight, height int64) *big.Int {
+	reward := getConstReward(height)
 	k := height - uHeight
 	reward.Mul(big.NewInt(8-k), reward)
 	reward.Div(reward, big.NewInt(8))
